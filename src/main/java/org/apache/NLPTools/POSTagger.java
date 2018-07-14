@@ -3,6 +3,7 @@ package org.apache.NLPTools;
 import opennlp.tools.postag.*;
 import opennlp.tools.util.*;
 import opennlp.tools.util.model.*;
+import opennlp.tools.dictionary.Dictionary;
 import opennlp.tools.postag.POSDictionary;
 import opennlp.tools.postag.TagDictionary;
 import java.io.*;
@@ -66,13 +67,23 @@ public class POSTagger {
 
 		InputStream dataIn = null;
 		try{
-			 dataIn = new FileInputStream(train_path);
-			 ObjectStream<String> lineStream = new PlainTextByLineStream(dataIn, "UTF-8");
+
+			InputStreamFactory isf = new InputStreamFactory() {
+				public InputStream createInputStream() throws IOException {
+					return new FileInputStream(train_path);
+				}
+			};
+
+			 ObjectStream<String> lineStream = new PlainTextByLineStream(isf, "UTF-8");
 			 ObjectStream<POSSample> sampleStream = new WordTagSampleStream(lineStream);
 			 TrainingParameters trainParams = new TrainingParameters();
+			 Dictionary ngramDictionary = null;
 			 //tp.put(tp.ALGORITHM_PARAM, value)
-			 trainParams.put("model", ModelType.MAXENT.name()); ;
-			 model = POSTaggerME.train("en", sampleStream, trainParams, createDictionary(), null); 
+			 trainParams.put("model", ModelType.MAXENT.name());
+			 POSTaggerFactory posTaggerFactory = POSTaggerFactory.create(null, ngramDictionary, createDictionary());
+			 model = POSTaggerME.train("en",sampleStream,trainParams,posTaggerFactory);
+
+			 //model = POSTaggerME.train("en", sampleStream, trainParams, posTaggerFactory, null);
 			 OutputStream modelOut = new BufferedOutputStream(new FileOutputStream(model_path));
 			 model.serialize(modelOut);
 		}

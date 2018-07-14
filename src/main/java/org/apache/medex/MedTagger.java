@@ -1,13 +1,7 @@
 package org.apache.medex;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,6 +31,7 @@ import org.apache.commons.lang.StringUtils;
 import org.javatuples.Pair;
 import org.javatuples.Quartet;
 import org.javatuples.Quintet;
+import sun.misc.Resource;
 
 /**
  * This class implements a semantic tagger for medication
@@ -1369,13 +1364,15 @@ public class MedTagger {
 	 */
 	private void loadRXNorm(String rx_norm_file) {
 
-		// System.out.println("** In loadRXNorm");
+		System.out.println("** In loadRXNorm");
+        System.out.println(rx_norm_file);
 		try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            URL rxNormFileUrl = classLoader.getResource(rx_norm_file);
+            System.out.println("File Found 1 : " + rxNormFileUrl.toString());
 
-			FileInputStream fstream = new FileInputStream(rx_norm_file);
-
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            InputStream is = rxNormFileUrl.openStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			String strLine;
 
 			// System.out.println(br.read());
@@ -1403,7 +1400,8 @@ public class MedTagger {
 			}
 
 			// Close the input stream
-			in.close();
+			is.close();
+            System.out.println("** Done loadRXNorm");
 		} catch (Exception e) {// Catch exception if any
 			e.printStackTrace();
 		}
@@ -1440,10 +1438,13 @@ public class MedTagger {
 		
 		try {
 			int i = 0;
-			FileInputStream fstream = new FileInputStream(norm_file);
 
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            ClassLoader classLoader = getClass().getClassLoader();
+            URL normFileUrl = classLoader.getResource(norm_file);
+            System.out.println("File Found 1 : " + normFileUrl.toString());
+
+            InputStream is = normFileUrl.openStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			String strLine;
 
 			// System.out.println(br.read());
@@ -1470,13 +1471,17 @@ public class MedTagger {
 	 */
 	private void loadRXCoding(String rx_code_file) throws Exception {
 
-		//System.out.println("** In loadRXCode");
+		System.out.println("** In loadRXCode");
+        System.out.println(rx_code_file);
 		try {
 
-			FileInputStream fstream = new FileInputStream(rx_code_file);
+            ClassLoader classLoader = getClass().getClassLoader();
+            URL rxNormFileUrl = classLoader.getResource(rx_code_file);
+            System.out.println("File Found 1 : " + rxNormFileUrl.toString());
 
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            InputStream is = rxNormFileUrl.openStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			String strLine;
 			int count = 0;
 			
@@ -1666,8 +1671,8 @@ public class MedTagger {
 			//}
 			
 			// Close the input stream
-			in.close();
-			//System.out.println("** finish loadRXCode");
+			is.close();
+			System.out.println("** finish loadRXCode");
 		} catch (Exception e) {// Catch exception if any
 			throw new Exception(e);
 		}
@@ -1678,20 +1683,22 @@ public class MedTagger {
 	/**
 	 * loads RX coding dictionary for identifying brand name of drug
 	 * 
-	 * @param rx_norm_file
+	 * @param rx_generic_file
 	 *            name of dictionary file generated from RXNORM
 	 * 
 	 * @see MedTagger
 	 */
 	private void loadGeneric(String rx_generic_file) {
 
-		// System.out.println("** In loadRXNorm");
+		System.out.println("** In loadRXNorm");
 		try {
 
-			FileInputStream fstream = new FileInputStream(rx_generic_file);
+            ClassLoader classLoader = getClass().getClassLoader();
+            URL rxGenericFileUrl = classLoader.getResource(rx_generic_file);
+            System.out.println("File Found 1 : " + rxGenericFileUrl.toString());
 
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            InputStream is = rxGenericFileUrl.openStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			String strLine;
 
 			// System.out.println(br.read());
@@ -1713,7 +1720,7 @@ public class MedTagger {
 			}
 
 			// Close the input stream
-			in.close();
+			is.close();
 		} catch (Exception e) {// Catch exception if any
 			e.printStackTrace();
 		}

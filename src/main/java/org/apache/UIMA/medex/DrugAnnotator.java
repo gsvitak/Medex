@@ -51,17 +51,17 @@ public class DrugAnnotator extends JCasAnnotator_ImplBase {
 	 */
 	public DrugAnnotator() {
 		// TODO Auto-generated constructor stub
-		this.rxnorm_file = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "brand_generic.cfg";
-		this.code_file = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "code.cfg";
-		this.generic_file = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "rxcui_generic.cfg";
+		this.rxnorm_file = "brand_generic.cfg";
+		this.code_file =  "code.cfg";
+		this.generic_file =  "rxcui_generic.cfg";
 		this.input_dir = System.getProperty("user.dir") + File.separator + "input";
 		this.output_dir = System.getProperty("user.dir") + File.separator + "output";
-		this.grammar_file = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "grammar.txt";		
+		this.grammar_file =  "grammar.txt";
 		
-		this.word_file = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "word.txt";
-		this.abbr_file = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "abbr.txt";
-		this.lex_file = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "lexicon.cfg";
-		this.norm_file = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "norm.cfg";
+		this.word_file = "word.txt";
+		this.abbr_file =  "abbr.txt";
+		this.lex_file =  "lexicon.cfg";
+		this.norm_file =  "norm.cfg";
 		
 		try{
 			//this.lex=new Lexicon(lex_file);

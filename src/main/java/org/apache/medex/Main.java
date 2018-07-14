@@ -16,17 +16,17 @@ import java.io.File;
 public class Main{ 
 	static String location = Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 	
-	static String lexicon_file = location+".."+File.separator + File.separator + "resources" + File.separator + "lexicon.cfg";
-	static String rxnorm_file = location+".."+File.separator + File.separator + "resources" + File.separator + "brand_generic.cfg";
-	static String code_file = location+".."+File.separator + File.separator + "resources" + File.separator + "code.cfg";
-	static String generic_file = location+".."+File.separator + File.separator + "resources" + File.separator + "rxcui_generic.cfg";
-	static String norm_file = location+".."+File.separator + File.separator + "resources" + File.separator + "norm.cfg";
+	static String lexicon_file = "lexicon.cfg";
+	static String rxnorm_file = "brand_generic.cfg";
+	static String code_file = "code.cfg";
+	static String generic_file = "rxcui_generic.cfg";
+	static String norm_file = "norm.cfg";
 	//static String input_dir = System.getProperty("user.dir") + File.separator + "test_input";
 	//static String output_dir = System.getProperty("user.dir") + File.separator + "test_output";
 	
-	static String word_file = location+".."+File.separator + File.separator + "resources" + File.separator + "word.txt";
-	static String abbr_file = location+".."+File.separator + File.separator + "resources" + File.separator + "abbr.txt";
-	static String grammar_file = location+".."+File.separator + File.separator + "resources" + File.separator + "grammar.txt";
+	static String word_file = "word.txt";
+	static String abbr_file = "abbr.txt";
+	static String grammar_file = "grammar.txt";
 	static String if_detect_sents = "y";
 	static String if_freq_norm = "n";
 	static String if_drool_engine = "n";
